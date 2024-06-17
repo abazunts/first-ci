@@ -1,14 +1,19 @@
 {
-  "name": "first-ci",
+  "name": "my-heroku-app",
   "version": "1.0.0",
-  "description": "Пример проекта для Jenkins pipeline",
-  "main": "src/app.js",
+  "description": "",
+  "main": "index.mjs",
+  "type": "module",
   "scripts": {
-    "test": "jest",
-    "build": "echo 'Build step'"
+    "start": "node index.mjs",
+    "test": "jest"
   },
-  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
   "devDependencies": {
-    "jest": "^27.0.0"
+    "mocha": "^9.1.3",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0"
   }
 }
