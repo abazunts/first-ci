@@ -1,0 +1,14 @@
+{
+  "name": "first-ci",
+  "version": "1.0.0",
+  "description": "Пример проекта для Jenkins pipeline",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "jest",
+    "build": "echo 'Build step'"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.0.0"
+  }
+}
