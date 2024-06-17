@@ -7,29 +7,21 @@ on:
 
 jobs:
   tests:
+    name: Tests # название конктретной работы в pipeline
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout  # клонируем репозиторый
         uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-
       - name: Install dependencies
-        run: npm install
-
-      - name: Test project
-        run: npm run test # если у вас есть шаг сборки, иначе удалите эту строку
+        run: npm i # устанавливаем зависимости
+      - name: Test
+        run: npm test # запускаем скрипт тестами
   deploy:
     name: Deploy
     needs: tests # указываем зависимую джобу т/е в данном случае деплой не запустится если тесты завершились ошибкой
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Heroku
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}} # данный апи кей нужно получить в своем аккаунте на хероку
