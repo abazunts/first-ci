@@ -28,9 +28,9 @@ jobs:
         run: curl https://cli-assets.heroku.com/install.sh | sh
 
       - name: Deploy to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          echo $HEROKU_API_KEY | heroku auth:token
-          heroku git:remote -a first-ci
-          git push heroku main
+        uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}} # данный апи кей нужно получить в своем аккаунте на хероку
+          heroku_app_name: "first-ci" #Must be unique in Heroku
+          heroku_email: "bazunc@gmail.com" # ваш email который зареган в heroku
