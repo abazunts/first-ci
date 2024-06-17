@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,12 +21,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
-        run: npm run build # если у вас есть шаг сборки, иначе удалите эту строку
-
-      - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install.sh | sh
-
+      - name: Test project
+        run: npm run test # если у вас есть шаг сборки, иначе удалите эту строку
+  deploy:
+    name: Deploy
+    needs: tests # указываем зависимую джобу т/е в данном случае деплой не запустится если тесты завершились ошибкой
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to Heroku
         uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
