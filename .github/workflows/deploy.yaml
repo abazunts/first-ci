@@ -16,21 +16,21 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '14'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Test project
-        run: npm run test # если у вас есть шаг сборки, иначе удалите эту строку
-
       - name: Build project
         run: npm run build # если у вас есть шаг сборки, иначе удалите эту строку
+
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
 
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
-          git remote add heroku https://git.heroku.com/first-ci.git
+          echo $HEROKU_API_KEY | heroku auth:token
+          heroku git:remote -a first-ci
           git push heroku main
-
